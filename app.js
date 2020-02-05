@@ -10,17 +10,18 @@ const Intern = require("./lib/Intern");
 //app templates
 
 //control variables
-var needManager = true;
-var needEngineer = true;
-var needIntern = true;
+let needManager = true;
+let needEngineer = true;
+let needIntern = true;
 
+let project;
 //employee arrays
 const manager = [];
 const engineers = [];
 const interns = [];
 
 //add employee functions
-function addEngineer() {
+async function addEngineer() {
   inquirer
     .prompt([
       {
@@ -32,7 +33,7 @@ function addEngineer() {
         type: "input",
         name: "email",
         message: "What is the engineer's email address?",
-        validate: function (value) {
+        validate: function(value) {
           if (value.includes("@") && value.includes(".")) {
             return true;
           } else {
@@ -51,13 +52,13 @@ function addEngineer() {
         message: "What is the engineer's github username?"
       }
     ])
-    .then(function (data) {
+    .then(function(data) {
       engineers.push(new Engineer(data.name, data.id, data.email, data.gitHub));
       console.log(engineers);
     });
 }
 
-function addManager() {
+async function addManager() {
   inquirer
     .prompt([
       {
@@ -69,7 +70,7 @@ function addManager() {
         type: "input",
         name: "email",
         message: "What is the manager's email address?",
-        validate: function (value) {
+        validate: function(value) {
           if (value.includes("@") && value.includes(".")) {
             return true;
           } else {
@@ -85,16 +86,16 @@ function addManager() {
       {
         type: "input",
         name: "office",
-        message: "What is the manager's office number?",
+        message: "What is the manager's office number?"
       }
     ])
-    .then(function (data) {
+    .then(function(data) {
       manager.push(new Manager(data.name, data.id, data.email, data.office));
       console.log(manager);
     });
 }
 
-function addIntern() {
+async function addIntern() {
   inquirer
     .prompt([
       {
@@ -106,7 +107,7 @@ function addIntern() {
         type: "input",
         name: "email",
         message: "What is the intern's email address?",
-        validate: function (value) {
+        validate: function(value) {
           if (value.includes("@") && value.includes(".")) {
             return true;
           } else {
@@ -125,10 +126,27 @@ function addIntern() {
         message: "What is the intern's school?"
       }
     ])
-    .then(function (data) {
+    .then(function(data) {
       intern.push(new Intern(data.name, data.id, data.email, data.school));
       console.log(interns);
     });
 }
 
-addManager();
+inquirer
+  .prompt([
+    {
+      name: "project",
+      message: "What project are you creating a team for?",
+      type: "input"
+    }
+  ])
+  .then(function(data) {
+    project = data.project;
+    addManager().then(function() {
+        console.log(`Manager needed: ${needManager}
+    Engineer(s) needed: ${needEngineer}
+    Intern(s) needed: ${needIntern}
+    Project name: ${project}`);
+      });
+    }
+  });
