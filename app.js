@@ -2,6 +2,7 @@
 const fs = require("fs");
 const util = require("util");
 const inquirer = require("inquirer");
+
 //fs functions promisify
 const writeFileAsync = util.promisify(fs.writeFile);
 const appendFileAsync = util.promisify(fs.appendFile);
@@ -11,8 +12,8 @@ const appendFileAsync = util.promisify(fs.appendFile);
 const Engineer = require("./lib/Engineer");
 const Manager = require("./lib/Manager");
 const Intern = require("./lib/Intern");
-
-//app templates
+//html generation
+const html = require("./templates/generateHTML");
 
 //control variables
 let needManager = true;
