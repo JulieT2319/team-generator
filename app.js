@@ -1,6 +1,10 @@
 //node libraries
 const fs = require("fs");
 const inquirer = require("inquirer");
+//fs functions promisified
+const writeFileAsync = util.promisify(fs.writeFile);
+const appendFileAsync = util.promisify(fs.appendFile);
+
 //app libraries
 //classes
 const Engineer = require("./lib/Engineer");
