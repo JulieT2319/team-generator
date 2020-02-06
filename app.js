@@ -1,7 +1,8 @@
 //node libraries
 const fs = require("fs");
+const util = require("util");
 const inquirer = require("inquirer");
-//fs functions promisified
+//fs functions promisify
 const writeFileAsync = util.promisify(fs.writeFile);
 const appendFileAsync = util.promisify(fs.appendFile);
 
