@@ -50,11 +50,24 @@ function addEngineer() {
 				type: "input",
 				name: "gitHub",
 				message: "What is the engineer's github username?"
+			},
+			{
+				type: "list",
+				name: "add",
+				message: "Do you want to add another engineer to your team?",
+				choices: ["Yes", "No"]
+
 			}
 		])
 		.then(function (data) {
 			engineers.push(new Engineer(data.name, data.id, data.email, data.gitHub));
 			console.log(engineers);
+			if (data.add === "No") {
+				needEngineer = false;
+				addIntern()
+			} else {
+				addEngineer();
+			}
 		});
 }
 
@@ -92,6 +105,7 @@ function addManager() {
 		.then(function (data) {
 			manager.push(new Manager(data.name, data.id, data.email, data.office));
 			console.log(manager);
+			addEngineer();
 		});
 }
 
@@ -144,21 +158,24 @@ function addIntern() {
 		});
 }
 function projectName() {
-	let { project } = inquirer
+	inquirer
 		.prompt([
 			{
 				name: "project",
 				message: "What project are you creating a team for?",
 				type: "input"
 			}
-		])
+		]).then(function (data) {
+			project = data.project;
+			console.log(project)
+			addManager()
+		});
 
-	console.log(project)
 };
 
 //projectName();
 
 async function collectInfo() {
-	addManager();
+	projectName();
 }
 collectInfo();
