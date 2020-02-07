@@ -26,6 +26,7 @@ function managerHTML(manager) {
 	<div class="card-content white-text">
 		<span class="card-title">${manager.name}</span>
 		<p>Role: Manager</p>
+		<p>ID: ${manager.id}</p>
 		<p>Email: ${manager.email}</p>
 		<p>Office Number: ${manager.office}</p>
 	</div>
@@ -38,6 +39,7 @@ function engineerHTML(engineer) {
 	<div class="card-content white-text">
 		<span class="card-title">${engineer.name}</span>
 		<p>Role: Engineer</p>
+		<p>ID: ${engineer.id}</p>
 		<p>Email: ${engineer.email}</p>
 		<p>GitHub: ${engineer.github}</p>
 	</div>
@@ -50,6 +52,7 @@ function internHTML(intern) {
 	<div class="card-content white-text">
 		<span class="card-title">${intern.name}</span>
 		<p>Role: Intern</p>
+		<p>ID: ${intern.id}</p>
 		<p>Email: ${intern.email}</p>
 		<p>School: ${intern.school}</p>
 	</div>
