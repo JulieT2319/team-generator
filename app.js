@@ -25,6 +25,7 @@ let project;
 const manager = [];
 const engineers = [];
 const interns = [];
+const ids = [];
 
 //add employee functions
 function addManager() {
@@ -60,8 +61,12 @@ function addManager() {
 		])
 		.then(function (data) {
 			manager.push(new Manager(data.name, data.id, data.email, data.office));
+			ids.push(data.id);
 			console.log(manager);
 			needManager = false;
+			manager.forEach(element => {
+				appendFileAsync("./output/team.html", html.managerHTML(element));
+			});
 			addEngineer();
 		});
 }
@@ -89,7 +94,14 @@ function addEngineer() {
 			{
 				type: "input",
 				message: "What is the engineer's ID?",
-				name: "id"
+				name: "id",
+				validate: function (value) {
+					if (ids.indexOf(value) === -1) {
+						return true
+					} else {
+						return "That id number has already been assigned, please assign a unique ID number."
+					}
+				}
 			},
 			{
 				type: "input",
@@ -106,9 +118,13 @@ function addEngineer() {
 		])
 		.then(function (data) {
 			engineers.push(new Engineer(data.name, data.id, data.email, data.gitHub));
+			ids.push(data.id);
 			console.log(engineers);
 			if (data.add === "No") {
 				needEngineer = false;
+				engineers.forEach(element => {
+					appendFileAsync("./output/team.html", html.engineerHTML(element));
+				});
 				addIntern()
 			} else {
 				addEngineer();
@@ -139,7 +155,14 @@ function addIntern() {
 			{
 				type: "input",
 				message: "What is the intern's ID?",
-				name: "id"
+				name: "id",
+				validate: function (value) {
+					if (ids.indexOf(value) === -1) {
+						return true
+					} else {
+						return "That id number has already been assigned, please assign a unique ID number."
+					}
+				}
 			},
 			{
 				type: "input",
@@ -156,9 +179,14 @@ function addIntern() {
 		])
 		.then(function (data) {
 			interns.push(new Intern(data.name, data.id, data.email, data.school));
+			ids.push(data.id);
 			console.log(interns);
 			if (data.add === "No") {
 				needIntern = false;
+				interns.forEach(element => {
+					appendFileAsync("./output/team.html", html.internHTML(element));
+
+				});
 			} else {
 				addIntern();
 			}
@@ -175,13 +203,10 @@ function projectName() {
 		]).then(function (data) {
 			project = data.project;
 			writeFileAsync("./output/team.html", html.pageTopHTML(project));
-			console.log(project)
 			addManager()
 		});
 
 };
-
-//projectName();
 
 async function collectInfo() {
 	projectName();
