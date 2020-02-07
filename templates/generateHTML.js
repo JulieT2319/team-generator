@@ -7,6 +7,7 @@ function pageTop(projectName) {
 			<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 			<meta http-equiv="X-UA-Compatible" content="ie=edge" />
 			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
+			<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 			<title>${projectName} Team</title>
 		</head>
 	
@@ -25,7 +26,9 @@ function managerHTML(manager) {
 <div class="card teal darken-1">
 	<div class="card-content white-text">
 		<span class="card-title">${manager.name}</span>
-		<p>Role: Manager</p>
+		<hr>
+		<p><i class="material-icons">perm_identity</i></p>
+		<p>Role: Manager </p>
 		<p>ID: ${manager.id}</p>
 		<p>Email: ${manager.email}</p>
 		<p>Office Number: ${manager.office}</p>
@@ -38,7 +41,9 @@ function engineerHTML(engineer) {
 <div class="card teal">
 	<div class="card-content white-text">
 		<span class="card-title">${engineer.name}</span>
-		<p>Role: Engineer</p>
+		<hr>
+		<p><i class="material-icons">computer</i></p>
+		<p>Role: Engineer </p>
 		<p>ID: ${engineer.id}</p>
 		<p>Email: ${engineer.email}</p>
 		<p>GitHub: ${engineer.github}</p>
@@ -51,6 +56,8 @@ function internHTML(intern) {
 <div class="card teal lighten-1">
 	<div class="card-content white-text">
 		<span class="card-title">${intern.name}</span>
+		<hr>
+		<p><i class="material-icons">school</i></p>
 		<p>Role: Intern</p>
 		<p>ID: ${intern.id}</p>
 		<p>Email: ${intern.email}</p>
