@@ -111,6 +111,7 @@ function addManager() {
 		.then(function (data) {
 			manager.push(new Manager(data.name, data.id, data.email, data.office));
 			console.log(manager);
+			needManager = false;
 			addEngineer();
 		});
 }
@@ -173,6 +174,7 @@ function projectName() {
 			}
 		]).then(function (data) {
 			project = data.project;
+			writeFileAsync("./output/team.html", html.pageTopHTML(project));
 			console.log(project)
 			addManager()
 		});
@@ -183,5 +185,6 @@ function projectName() {
 
 async function collectInfo() {
 	projectName();
+
 }
 collectInfo();
