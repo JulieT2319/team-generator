@@ -63,9 +63,8 @@ function addManager() {
 			manager.push(new Manager(data.name, data.id, data.email, data.office));
 			ids.push(data.id);
 			needManager = false;
-			manager.forEach(element => {
-				appendFileAsync("./output/team.html", html.managerHTML(element));
-			});
+			appendFileAsync("./output/team.html", html.managerHTML(data));
+
 			addEngineer();
 		});
 }
