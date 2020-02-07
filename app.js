@@ -41,7 +41,7 @@ function addManager() {
 				name: "email",
 				message: "What is the manager's email address?",
 				validate: function (value) {
-					if (value.includes("@") && value.includes(".")) {
+					if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,5})+$/.test(value)) {
 						return true;
 					} else {
 						return "Please provide a valid email address.";
@@ -84,7 +84,7 @@ function addEngineer() {
 				name: "email",
 				message: "What is the engineer's email address?",
 				validate: function (value) {
-					if (value.includes("@") && value.includes(".")) {
+					if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,5})+$/.test(value)) {
 						return true;
 					} else {
 						return "Please provide a valid email address.";
@@ -145,7 +145,7 @@ function addIntern() {
 				name: "email",
 				message: "What is the intern's email address?",
 				validate: function (value) {
-					if (value.includes("@") && value.includes(".")) {
+					if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,5})+$/.test(value)) {
 						return true;
 					} else {
 						return "Please provide a valid email address.";
