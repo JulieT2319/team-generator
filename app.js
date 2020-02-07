@@ -27,6 +27,45 @@ const engineers = [];
 const interns = [];
 
 //add employee functions
+function addManager() {
+	inquirer
+		.prompt([
+			{
+				type: "input",
+				name: "name",
+				message: "What is the manager's name?"
+			},
+			{
+				type: "input",
+				name: "email",
+				message: "What is the manager's email address?",
+				validate: function (value) {
+					if (value.includes("@") && value.includes(".")) {
+						return true;
+					} else {
+						return "Please provide a valid email address.";
+					}
+				}
+			},
+			{
+				type: "input",
+				message: "What is the manager's ID?",
+				name: "id"
+			},
+			{
+				type: "input",
+				name: "office",
+				message: "What is the manager's office number?"
+			}
+		])
+		.then(function (data) {
+			manager.push(new Manager(data.name, data.id, data.email, data.office));
+			console.log(manager);
+			needManager = false;
+			addEngineer();
+		});
+}
+
 function addEngineer() {
 	inquirer
 		.prompt([
@@ -74,45 +113,6 @@ function addEngineer() {
 			} else {
 				addEngineer();
 			}
-		});
-}
-
-function addManager() {
-	inquirer
-		.prompt([
-			{
-				type: "input",
-				name: "name",
-				message: "What is the manager's name?"
-			},
-			{
-				type: "input",
-				name: "email",
-				message: "What is the manager's email address?",
-				validate: function (value) {
-					if (value.includes("@") && value.includes(".")) {
-						return true;
-					} else {
-						return "Please provide a valid email address.";
-					}
-				}
-			},
-			{
-				type: "input",
-				message: "What is the manager's ID?",
-				name: "id"
-			},
-			{
-				type: "input",
-				name: "office",
-				message: "What is the manager's office number?"
-			}
-		])
-		.then(function (data) {
-			manager.push(new Manager(data.name, data.id, data.email, data.office));
-			console.log(manager);
-			needManager = false;
-			addEngineer();
 		});
 }
 
