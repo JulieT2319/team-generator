@@ -105,7 +105,14 @@ function addEngineer() {
 			{
 				type: "input",
 				name: "gitHub",
-				message: "What is the engineer's github username?"
+				message: "What is the engineer's github username?",
+				validate: function (value) {
+					if (/^[a-z\d](?:[a-z\d]|-(?=[a-z\d])){0,38}$/i.test(value)) {
+						return true
+					} else {
+						return "Please enter a GitHub username"
+					}
+				}
 			},
 			{
 				type: "list",
