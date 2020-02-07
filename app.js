@@ -62,7 +62,6 @@ function addManager() {
 		.then(function (data) {
 			manager.push(new Manager(data.name, data.id, data.email, data.office));
 			ids.push(data.id);
-			console.log(manager);
 			needManager = false;
 			manager.forEach(element => {
 				appendFileAsync("./output/team.html", html.managerHTML(element));
@@ -119,7 +118,6 @@ function addEngineer() {
 		.then(function (data) {
 			engineers.push(new Engineer(data.name, data.id, data.email, data.gitHub));
 			ids.push(data.id);
-			console.log(engineers);
 			if (data.add === "No") {
 				needEngineer = false;
 				engineers.forEach(element => {
@@ -180,7 +178,6 @@ function addIntern() {
 		.then(function (data) {
 			interns.push(new Intern(data.name, data.id, data.email, data.school));
 			ids.push(data.id);
-			console.log(interns);
 			if (data.add === "No") {
 				needIntern = false;
 				interns.forEach(element => {
