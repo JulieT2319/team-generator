@@ -46,7 +46,7 @@ function engineerHTML(engineer) {
 		<p>Role: Engineer </p>
 		<p>ID: ${engineer.id}</p>
 		<p>Email: ${engineer.email}</p>
-		<p>GitHub: ${engineer.github}</p>
+		<p>GitHub: <a href="https://github.com/${engineer.github}" target="_blank">${engineer.github}</a></p>
 	</div>
 </div>
 </div>`
