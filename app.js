@@ -187,6 +187,7 @@ function addIntern() {
 					appendFileAsync("./output/team.html", html.internHTML(element));
 
 				});
+				appendFileAsync("./output/team.html", html.pageEndHTML());
 			} else {
 				addIntern();
 			}
