@@ -40,7 +40,7 @@ function addManager() {
 				type: "input",
 				name: "email",
 				message: "What is the manager's email address?",
-				validate: function (value) {
+				validate: function(value) {
 					if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,5})+$/.test(value)) {
 						return true;
 					} else {
@@ -59,16 +59,45 @@ function addManager() {
 				message: "What is the manager's office number?"
 			}
 		])
-		.then(function (data) {
+		.then(function(data) {
 			manager.push(new Manager(data.name, data.id, data.email, data.office));
 			ids.push(data.id);
 			needManager = false;
 			appendFileAsync("./output/team.html", html.managerHTML(data));
-
-			addEngineer();
+			inquirer
+				.prompt([
+					{
+						message: "Do you want to add any engineers?",
+						name: "continue",
+						type: "list",
+						choices: ["Yes", "No"]
+					}
+				])
+				.then(function(data) {
+					if (data.continue === "Yes") {
+						addEngineer();
+					} else {
+						inquirer
+							.prompt([
+								{
+									message: "Do you want to add any interns?",
+									name: "continue",
+									type: "list",
+									choices: ["Yes", "No"]
+								}
+							])
+							.then(function(data) {
+								if (data.continue === "Yes") {
+									addIntern();
+								} else {
+									appendFileAsync("./output/team.html", html.pageEndHTML());
+									console.log("Your team has been generated.");
+								}
+							});
+					}
+				});
 		});
 }
-
 function addEngineer() {
 	inquirer
 		.prompt([
@@ -81,7 +110,7 @@ function addEngineer() {
 				type: "input",
 				name: "email",
 				message: "What is the engineer's email address?",
-				validate: function (value) {
+				validate: function(value) {
 					if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,5})+$/.test(value)) {
 						return true;
 					} else {
@@ -93,11 +122,11 @@ function addEngineer() {
 				type: "input",
 				message: "What is the engineer's ID?",
 				name: "id",
-				validate: function (value) {
+				validate: function(value) {
 					if (ids.indexOf(value) === -1) {
-						return true
+						return true;
 					} else {
-						return "That id number has already been assigned, please assign a unique ID number."
+						return "That id number has already been assigned, please assign a unique ID number.";
 					}
 				}
 			},
@@ -105,11 +134,11 @@ function addEngineer() {
 				type: "input",
 				name: "gitHub",
 				message: "What is the engineer's github username?",
-				validate: function (value) {
+				validate: function(value) {
 					if (/^[a-z\d](?:[a-z\d]|-(?=[a-z\d])){0,38}$/i.test(value)) {
-						return true
+						return true;
 					} else {
-						return "Please enter a GitHub username"
+						return "Please enter a GitHub username";
 					}
 				}
 			},
@@ -118,10 +147,9 @@ function addEngineer() {
 				name: "add",
 				message: "Do you want to add another engineer to your team?",
 				choices: ["Yes", "No"]
-
 			}
 		])
-		.then(function (data) {
+		.then(function(data) {
 			engineers.push(new Engineer(data.name, data.id, data.email, data.gitHub));
 			ids.push(data.id);
 			if (data.add === "No") {
@@ -129,7 +157,23 @@ function addEngineer() {
 				engineers.forEach(element => {
 					appendFileAsync("./output/team.html", html.engineerHTML(element));
 				});
-				addIntern()
+				inquirer
+					.prompt([
+						{
+							message: "Do you want to add any interns?",
+							name: "continue",
+							type: "list",
+							choices: ["Yes", "No"]
+						}
+					])
+					.then(function(data) {
+						if (data.continue === "Yes") {
+							addIntern();
+						} else {
+							appendFileAsync("./output/team.html", html.pageEndHTML());
+							console.log("Your team has been generated.");
+						}
+					});
 			} else {
 				addEngineer();
 			}
@@ -148,7 +192,7 @@ function addIntern() {
 				type: "input",
 				name: "email",
 				message: "What is the intern's email address?",
-				validate: function (value) {
+				validate: function(value) {
 					if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,5})+$/.test(value)) {
 						return true;
 					} else {
@@ -160,11 +204,11 @@ function addIntern() {
 				type: "input",
 				message: "What is the intern's ID?",
 				name: "id",
-				validate: function (value) {
+				validate: function(value) {
 					if (ids.indexOf(value) === -1) {
-						return true
+						return true;
 					} else {
-						return "That id number has already been assigned, please assign a unique ID number."
+						return "That id number has already been assigned, please assign a unique ID number.";
 					}
 				}
 			},
@@ -178,19 +222,18 @@ function addIntern() {
 				name: "add",
 				message: "Do you want to add another intern to your team?",
 				choices: ["Yes", "No"]
-
 			}
 		])
-		.then(function (data) {
+		.then(function(data) {
 			interns.push(new Intern(data.name, data.id, data.email, data.school));
 			ids.push(data.id);
 			if (data.add === "No") {
 				needIntern = false;
 				interns.forEach(element => {
 					appendFileAsync("./output/team.html", html.internHTML(element));
-
 				});
 				appendFileAsync("./output/team.html", html.pageEndHTML());
+				console.log("Your team has been generated.");
 			} else {
 				addIntern();
 			}
@@ -204,16 +247,15 @@ function projectName() {
 				message: "What project are you creating a team for?",
 				type: "input"
 			}
-		]).then(function (data) {
+		])
+		.then(function(data) {
 			project = data.project;
 			writeFileAsync("./output/team.html", html.pageTopHTML(project));
-			addManager()
+			addManager();
 		});
-
-};
+}
 
 async function collectInfo() {
 	projectName();
-
 }
 collectInfo();
